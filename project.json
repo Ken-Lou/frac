@@ -1,0 +1,241 @@
+{
+	"contentrating" : "Everyone",
+	"description" : "AI Generated. All characters are fictional.\nBLBL：FRAC_LAB",
+	"file" : "index.html",
+	"general" : 
+	{
+		"properties" : 
+		{
+			"autohide" : 
+			{
+				"index" : 4,
+				"order" : 104,
+				"text" : "15 秒后自动收起界面",
+				"type" : "bool",
+				"value" : true
+			},
+			"autoswitch" : 
+			{
+				"index" : 6,
+				"options" : 
+				[
+					{
+						"label" : "等我来选",
+						"value" : "0"
+					},
+					{
+						"label" : "每 5 分钟",
+						"value" : "5"
+					},
+					{
+						"label" : "每 15 分钟",
+						"value" : "15"
+					},
+					{
+						"label" : "每 30 分钟",
+						"value" : "30"
+					}
+				],
+				"order" : 106,
+				"text" : "自动换装间隔",
+				"type" : "combo",
+				"value" : "0"
+			},
+			"brightness" : 
+			{
+				"index" : 3,
+				"max" : 115,
+				"min" : 65,
+				"order" : 103,
+				"precision" : 0,
+				"step" : 1,
+				"text" : "画面明暗",
+				"type" : "slider",
+				"value" : 100
+			},
+			"fit" : 
+			{
+				"index" : 5,
+				"options" : 
+				[
+					{
+						"label" : "完整画面",
+						"value" : "contain"
+					},
+					{
+						"label" : "铺满屏幕",
+						"value" : "cover"
+					}
+				],
+				"order" : 105,
+				"text" : "画面比例",
+				"type" : "combo",
+				"value" : "contain"
+			},
+			"look" : 
+			{
+				"index" : 0,
+				"options" : 
+				[
+					{
+						"label" : "记住上次选择",
+						"value" : "0"
+					},
+					{
+						"label" : "夜色红底",
+						"value" : "1"
+					},
+					{
+						"label" : "奶油假日",
+						"value" : "2"
+					},
+					{
+						"label" : "蓝结心事",
+						"value" : "4"
+					},
+					{
+						"label" : "酒红赴约",
+						"value" : "6"
+					},
+					{
+						"label" : "绯红小恶魔",
+						"value" : "3"
+					},
+					{
+						"label" : "黑衫偷闲",
+						"value" : "5"
+					},
+					{
+						"label" : "雾灰银光",
+						"value" : "7"
+					},
+					{
+						"label" : "开衫午后",
+						"value" : "8"
+					},
+					{
+						"label" : "薄纱晚风",
+						"value" : "9"
+					},
+					{
+						"label" : "暮蓝潮汐",
+						"value" : "34"
+					},
+					{
+						"label" : "晴海微风",
+						"value" : "35"
+					},
+					{
+						"label" : "夜幕丝绒",
+						"value" : "13"
+					},
+					{
+						"label" : "黑衫轻语",
+						"value" : "14"
+					},
+					{
+						"label" : "白衫偷懒",
+						"value" : "16"
+					},
+					{
+						"label" : "墨格从容",
+						"value" : "17"
+					},
+					{
+						"label" : "绯色来信",
+						"value" : "18"
+					},
+					{
+						"label" : "粉结初晴",
+						"value" : "19"
+					},
+					{
+						"label" : "雾灰轻暖",
+						"value" : "21"
+					},
+					{
+						"label" : "簪花小令",
+						"value" : "22"
+					},
+					{
+						"label" : "黑裙侧影",
+						"value" : "23"
+					},
+					{
+						"label" : "青灰浮光",
+						"value" : "24"
+					},
+					{
+						"label" : "紫暮长靴",
+						"value" : "25"
+					},
+					{
+						"label" : "暖织冬日",
+						"value" : "26"
+					},
+					{
+						"label" : "晴蓝百褶",
+						"value" : "27"
+					},
+					{
+						"label" : "墨色慵懒",
+						"value" : "28"
+					},
+					{
+						"label" : "奶霜花边",
+						"value" : "29"
+					},
+					{
+						"label" : "灰格书卷",
+						"value" : "30"
+					},
+					{
+						"label" : "豹纹不羁",
+						"value" : "31"
+					}
+				],
+				"order" : 100,
+				"text" : "初始穿搭",
+				"type" : "combo",
+				"value" : "4"
+			},
+			"schemecolor" : 
+			{
+				"order" : 0,
+				"text" : "ui_browse_properties_scheme_color",
+				"type" : "color",
+				"value" : "0 0 0"
+			},
+			"sound" : 
+			{
+				"index" : 1,
+				"order" : 101,
+				"text" : "开启声音",
+				"type" : "bool",
+				"value" : false
+			},
+			"volume" : 
+			{
+				"index" : 2,
+				"max" : 100,
+				"min" : 0,
+				"order" : 102,
+				"precision" : 0,
+				"step" : 1,
+				"text" : "声音大小",
+				"type" : "slider",
+				"value" : 35
+			}
+		}
+	},
+	"preview" : "preview.jpg",
+	"ratingsex" : "none",
+	"ratingviolence" : "none",
+	"tags" : [ "CGI" ],
+	"title" : "FRAC_桌面互动壁纸",
+	"type" : "Web",
+	"version" : 3,
+	"visibility" : "public",
+	"workshopid" : "3810650535",
+	"workshopurl" : "steam://url/CommunityFilePage/3810650535"
+}

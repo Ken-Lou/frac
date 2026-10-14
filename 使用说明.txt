@@ -1,0 +1,7 @@
+PURPLE · 片刻
+Wallpaper Engine 导入方法
+
+1. 完整解压 PURPLE_桌面互动壁纸_发布版_WallpaperEngine.zip，打开里面的 PURPLE_桌面互动壁纸_发布版 文件夹。
+2. 打开 Wallpaper Engine 的壁纸编辑器，将文件夹中的 index.html 拖入，创建 Web 壁纸项目。
+3. 如果提示导入同文件夹的其他文件，请全部导入。请保留 images、media 及其他配套文件，不要只复制 index.html。
+4. 保存项目，在 Wallpaper Engine 中选中这张壁纸并应用即可。

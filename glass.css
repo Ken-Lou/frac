@@ -1,0 +1,501 @@
+/* Selected V1 finish: smoked crystal panels, with stacked dialogue typography. */
+:root{
+  --surface-radius:11px;
+  --surface-blur:18px;
+  --surface-saturation:.82;
+  --surface-fill:linear-gradient(145deg,#e4e9e613,transparent 34%,#b5c0c80a),rgba(16,27,34,.39);
+  --surface-shadow:0 20px 55px #0003,inset 0 1px 0 #f2ead050,inset 0 -1px 0 #c5d4db16,inset 1px 0 0 #f1e7ce2a,inset -1px 0 0 #dee8e41a;
+}
+.panel,.toast{border-color:transparent;border-radius:var(--surface-radius);background:var(--surface-fill);box-shadow:var(--surface-shadow);backdrop-filter:blur(var(--surface-blur)) saturate(var(--surface-saturation));-webkit-backdrop-filter:blur(var(--surface-blur)) saturate(var(--surface-saturation))}
+.panel{padding:27px 30px 30px;animation:crystal-arrive .38s cubic-bezier(.16,1,.3,1);overflow:hidden}
+.settings-panel{overflow:auto;scrollbar-width:thin;scrollbar-color:#c5af8e33 transparent}
+.panel-top{margin-bottom:18px}.panel-top .micro{color:#c1c5ba}.panel-top .icon-button{width:28px;height:28px;margin-right:-4px;background:#ebe2d00c;border:1px solid #f0e3c811;color:#c2b9ab}
+.panel h2{font-size:30px;letter-spacing:1.5px}.panel-subtitle{color:#bab8aa;line-height:1.9}.setting-line{color:#e0d8c9}.panel-footnote{border-color:#ecddc416;color:#b5b8ac}
+.switch{flex-shrink:0;border-color:#ddd0b566;background:#14202922}.toggle-line small{color:#c2c6ba}
+.setting-options{border:1px solid #e6d4b61c;background:#12202a26;border-radius:5px;padding:3px;gap:3px}.setting-options button{border:0;border-radius:3px;padding:9px 3px;color:#b4b6ad}.setting-options button+button{border-left:0}.setting-options button[aria-pressed=true]{background:#d8bd971c;box-shadow:inset 0 1px 0 #eed9b524;color:#eddbc0}
+.save-button{border-radius:6px;border-color:#ead9be39;background:#e2d0b614;box-shadow:inset 0 1px 0 #eddcc317;color:#e5d1af}.save-button:hover{background:#d8bd972d}
+input[type=range]::-webkit-slider-runnable-track{height:2px;background:#e1d4bb29;border-radius:2px}input[type=range]::-webkit-slider-thumb{box-shadow:0 0 0 5px #d8bd970b,0 2px 8px #0005;background:#e3ccab}
+/* Same crystal fill and lit edge, while preserving the preferred two-line layout. */
+.toast{--surface-blur:22px;--surface-fill:linear-gradient(120deg,#cad4d517,transparent),rgba(18,29,35,.45);display:block;padding:15px 25px 17px;min-width:255px;max-width:min(540px,85vw);bottom:19vh;text-align:left;transition:opacity .3s,transform .35s}
+.toast small{display:block;margin:0 0 6px;padding:0;border:0;font-size:8px;letter-spacing:1.6px;color:#c0ad8f;line-height:1.7}
+.toast small::before{content:"";display:inline-block;width:3px;height:3px;border-radius:50%;background:#d6bd98;margin-right:8px;vertical-align:middle}
+.toast>span{display:block;font-size:12px;line-height:1.7;letter-spacing:.8px;color:#f0e7d8;overflow-wrap:anywhere}
+@keyframes crystal-arrive{from{opacity:0;transform:translateY(8px) scale(.985)}to{opacity:1;transform:none}}
+@media(min-width:2300px){.toast>span{font-size:13px}}
+@media(max-height:750px){.panel{padding:18px 23px 23px}.panel h2{font-size:25px}.panel-top{margin-bottom:10px}.setting-line{margin-top:15px}.panel-footnote{margin-top:18px}.toast{bottom:17vh}}
+@media(max-aspect-ratio:4/3){.toast{bottom:12vh;min-width:min(255px,85vw)}}
+@media(prefers-reduced-motion:reduce){.panel{animation:none}}
+@supports not (backdrop-filter:blur(1px)){.panel,.toast{background:rgba(17,26,31,.92)}}
+/* A single, quiet control beside playback. The menu shares the crystal finish. */
+.playback{position:relative;gap:17px}
+.playback-mode{position:relative;margin-left:-15px;margin-right:-6px}
+.mode-button{position:relative;width:27px;height:36px;padding:4px;color:#b5ad9e;border-radius:6px;transition:background .2s,color .2s}
+.mode-button>svg{width:12px;height:12px;transform:rotate(90deg);transition:transform .25s var(--ease)}
+.mode-button:hover,.mode-button[aria-expanded=true]{color:#f2dfbf;background:#d8bd9710}
+.mode-button[aria-expanded=true]>svg{transform:rotate(-90deg)}
+.mode-dot{position:absolute;bottom:4px;left:12px;width:3px;height:3px;border-radius:50%;background:var(--gold);opacity:0;transition:opacity .25s}
+body[data-playback-mode=single] .mode-dot,body[data-playback-mode=all] .mode-dot,body[data-playback-mode=favorites] .mode-dot{opacity:.85}
+.mode-menu{position:absolute;z-index:30;bottom:calc(100% + 17px);left:-47px;width:286px;max-width:calc(100vw - 32px);padding:18px 9px 9px;border-radius:12px;border:1px solid #e6d4b618;background:linear-gradient(145deg,#ebead614,transparent 44%),rgba(15,25,31,.7);box-shadow:var(--surface-shadow);backdrop-filter:blur(24px) saturate(.85);-webkit-backdrop-filter:blur(24px) saturate(.85);animation:mode-arrive .24s var(--ease);transform-origin:48px bottom}
+.mode-heading{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:0 13px 13px;color:#cfc6b5;font-size:10px;letter-spacing:1.5px}
+.mode-heading .micro{font:italic 9px Georgia,serif;letter-spacing:1px;color:#a99b83;white-space:nowrap}
+.mode-menu>button{width:100%;display:flex;align-items:center;gap:13px;padding:13px 12px;text-align:left;border-radius:7px;border:1px solid transparent;transition:background .2s,border-color .2s}
+.mode-menu>button:hover,.mode-menu>button:focus-visible{background:#ede2ce0a;color:#f0e7d8}
+.mode-menu>button:focus-visible{outline:1px solid #e8cda260;outline-offset:-2px}
+.mode-menu>button[aria-checked=true]{background:linear-gradient(105deg,#d8bd9719,#d8bd9705);border-color:#dfc39c20}
+.mode-menu .mode-symbol{width:18px;height:18px;color:#b4ac9b}
+.mode-menu strong{display:block;color:#dcd5c7;font-size:11px;font-weight:400;letter-spacing:1px;line-height:1.5}
+.mode-menu small{display:block;margin-top:5px;color:#a5a99f;font-size:9px;letter-spacing:.25px;line-height:1.65}
+.mode-menu em{display:inline-block;margin-left:5px;font:italic 11px Georgia,serif;color:#bfa785}
+.mode-menu .mode-check{width:13px;height:13px;margin-left:auto;opacity:0;stroke-width:1.4;color:#e8cda2}
+.mode-menu [aria-checked=true] .mode-check{opacity:1}
+.mode-menu [aria-checked=true] .mode-symbol,.mode-menu [aria-checked=true] strong{color:#e8d2af}
+.mode-menu [aria-disabled=true]{opacity:.48;cursor:default}
+.mode-footnote{margin:11px 13px 4px;padding-top:12px;border-top:1px solid #e7d2b514;color:#a69f91;font-size:9px;letter-spacing:1px;line-height:1.8}
+.bottom-bar{z-index:15}
+body.has-panel .bottom-bar{z-index:10}
+.timeline-label{gap:10px;white-space:nowrap}
+body[data-playback-mode=single] #timelineState,body[data-playback-mode=all] #timelineState,body[data-playback-mode=favorites] #timelineState{color:#d8c09d}
+#autoOptions.is-dormant{opacity:.4;pointer-events:none}
+#autoOptions.is-dormant button{cursor:default}
+.auto-loop-note{font-size:9px;color:#b9ad99;letter-spacing:.4px;margin:9px 0 0;line-height:1.7}
+#film,#filmNext{opacity:0;z-index:1}
+#film.visible{opacity:1}
+#filmNext{pointer-events:none}
+#curtain{z-index:3}.scene-shade,.edge-light{z-index:4;pointer-events:none}
+/* A nonzero, sub-pixel blend keeps this one prepared surface in composition.
+   At .001 the maximum 8-bit channel contribution is less than one level. */
+#loopPlate{z-index:3;opacity:0;background:#0b1117;pointer-events:none;will-change:opacity}
+#loopPlate.is-primed{opacity:.001}
+body.is-loop-transition .timeline-track{opacity:.6}
+/* Keep the wardrobe dim through automatic handoffs; hover/focus still reveals it. */
+body.is-loop-transition:not(.is-idle):not(.is-immersed) .wardrobe:not(:hover):not(:focus-within){opacity:.26}
+@keyframes mode-arrive{from{opacity:0;transform:translateY(7px) scale(.98)}to{opacity:1;transform:none}}
+@media(max-aspect-ratio:4/3){.playback{gap:10px}.playback-mode{margin-left:-8px;margin-right:-4px}.mode-menu{left:-44px}.timeline-display{min-width:83px}.bottom-bar{gap:10px}}
+@media(max-width:480px){.playback{gap:7px}.playback-mode{margin-left:-5px;margin-right:-4px}.mode-button{width:24px}.mode-dot{left:11px}.timeline-display{min-width:74px}.bottom-bar{gap:5px}.view-tools{gap:4px}#momentButton{gap:5px;font-size:9px}}
+@media(prefers-reduced-motion:reduce){.mode-menu{animation:none}.mode-button>svg{transition:none}}
+@supports not (backdrop-filter:blur(1px)){.mode-menu{background:rgba(15,25,31,.96)}}
+/* The creator credit follows both ways of hiding the interface. */
+.credit{transition:opacity .8s var(--ease),visibility .8s}
+body.is-idle .credit,body.is-immersed .credit{opacity:0;visibility:hidden;pointer-events:none}
+/* Return where immersion was entered, independent of the movable left column. */
+#wakeButton{left:auto;right:var(--wake-right,var(--margin));bottom:var(--wake-bottom,6.5vh);padding:10px 0;gap:9px;font-size:var(--wake-font-size,13px);letter-spacing:var(--wake-letter-spacing,1px);white-space:nowrap}
+#wakeButton.is-edge-tight>svg{display:none}
+
+/* Optional left-column positioning; never transforms the full header/footer. */
+.brand,.now-playing{position:relative;left:var(--left-offset,0px)}
+.wardrobe{left:calc(var(--margin) + var(--left-offset,0px))}
+.layout-setting{margin-top:23px;padding-top:19px;border-top:1px solid #ecddc416}
+.layout-button{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:0;text-align:left;color:#e0d8c9;font-size:11px;letter-spacing:.5px}
+.layout-button small{display:block;margin-top:7px;color:#b4b6ad;font-size:9px;letter-spacing:.25px;line-height:1.7}
+.layout-button>svg{width:13px;height:13px;color:#cfba99;transition:transform .25s var(--ease)}
+.layout-button[aria-expanded=true]>svg{transform:rotate(90deg)}
+.layout-controls{margin-top:17px;padding:1px 13px 10px;border:1px solid #e6d4b61c;border-radius:6px;background:linear-gradient(125deg,#d8bd970b,transparent),#12202a26}
+.layout-controls .setting-line{margin:14px 0 10px;font-size:10px}
+.layout-controls output{font:10px "Microsoft YaHei",sans-serif;white-space:nowrap;color:#dcc5a4}
+.layout-range-row{display:flex;align-items:center;gap:10px}
+.layout-range-row button{display:flex;align-items:center;justify-content:center;flex:0 0 23px;height:27px;border-radius:4px;background:#e7d5b60a;color:#cbb995}
+.layout-range-row button:disabled{opacity:.3;cursor:default}
+.layout-range-row button svg{width:11px;height:11px}
+#layoutLeft svg{transform:rotate(180deg)}
+.layout-range-row input{min-width:0}
+.layout-note{font-size:9px;line-height:1.8;color:#aaaFA6;margin:13px 0}
+.layout-actions{display:flex;align-items:center;gap:12px;padding-top:10px;border-top:1px solid #ecddc412}
+.layout-actions>span{flex:1}
+.layout-actions button{padding:5px 0;font-size:10px;color:#bcb4a4;white-space:nowrap}
+.layout-actions #layoutDone{border:1px solid #ead9be39;border-radius:4px;background:#e2d0b614;color:#e5d1af;padding:6px 12px}
+.layout-actions button:hover{color:#fff0d4}
+/* The temporary positioning preview must also override loop/transition dimming. */
+body.is-layout-adjusting .wardrobe{opacity:1!important;transition:opacity .2s}
+.layout-guide{position:fixed;z-index:16;top:4vh;bottom:3vh;left:calc(var(--margin) + var(--left-offset,0px) - 10px);width:1px;background:linear-gradient(180deg,transparent,#e6cd9b70 12%,#e6cd9b40 88%,transparent);pointer-events:none}
+.layout-guide::before,.layout-guide::after{content:"";position:absolute;left:-2px;width:5px;height:5px;border:1px solid #e6cd9b99;border-radius:50%;background:#14202a}
+.layout-guide::before{top:9%}.layout-guide::after{bottom:7%}
+.layout-guide span{position:absolute;top:8%;left:13px;font-size:8px;letter-spacing:2px;white-space:nowrap;color:#d5bc91}
+
+/* Standard preserves the original design through QHD; at 4K its text matches the prior comfortable tier.
+   CSS viewport scaling already accounts for browser/OS zoom: never multiply by DPR. */
+:root{--reading-base:clamp(1px,min(.0520833333vw,.0925925926vh),2px);--gentle-base:clamp(1px,min(.0390625vw,.0694444444vh),1.5px);--gentle-reading-base:clamp(1px,min(calc(.0625vw - .6px),calc(.1111111111vh - .6px)),1.8px);--wardrobe-step:clamp(1px,min(calc(.01171875vw + .7px),calc(.0208333333vh + .7px)),1.15px)}
+body{--text-factor:1;--reading-unit:calc(var(--reading-base) * var(--text-factor));--read-main:calc(15 * var(--reading-unit));--read-secondary:calc(13 * var(--reading-unit));--read-small:calc(12 * var(--reading-unit));--read-micro:calc(10 * var(--reading-unit))}
+body[data-text-size=larger]{--text-factor:1.15}
+body[data-text-size=large]{--text-factor:1.3}
+/* Gentle tiers keep the original visual hierarchy and the name/heart row. */
+body{--gentle-factor:1;--gentle-unit:calc(var(--gentle-reading-base) * var(--gentle-factor));--gentle-copy:11;--gentle-name:10;--gentle-note:9;--gentle-page:12;--gentle-brand:13;--gentle-brand-small:8;--gentle-credit:8;--credit-factor:1}
+body[data-text-size=comfortable]{--gentle-factor:1.2;--credit-factor:1.2}
+body[data-text-size=larger]{--credit-factor:1.35}
+body[data-text-size=large]{--credit-factor:1.5}
+@media(min-width:2300px){body{--gentle-copy:13;--gentle-name:12;--gentle-note:11;--gentle-page:14;--gentle-brand:17;--gentle-brand-small:10;--gentle-credit:9}}
+:where(.is-reading-gentle) .intro,:where(.is-reading-gentle) .collection-heading,:where(.is-reading-gentle) .now-playing p,:where(.is-reading-gentle) .text-button{font-size:calc(var(--gentle-copy) * var(--gentle-unit))}
+:where(.is-reading-gentle) .look-short{font-size:calc(var(--gentle-name) * var(--gentle-unit) * var(--wardrobe-name-factor,1));letter-spacing:.04em;white-space:nowrap}
+:where(.is-reading-gentle) .favorite-button{flex-shrink:0}
+:where(.is-reading-gentle) #lookName,:where(.is-reading-gentle) #randomText{font-size:calc(13 * var(--gentle-unit))}
+:where(.is-reading-gentle) #lookEnglish,:where(.is-reading-gentle) .panel-subtitle,:where(.is-reading-gentle) .setting-options button,:where(.is-reading-gentle) .moment-look,:where(.is-reading-gentle) .subtle-button{font-size:calc(10 * var(--gentle-unit))}
+:where(.is-reading-gentle) .chapter-name,:where(.is-reading-gentle) .collection-note{font-size:calc(var(--gentle-note) * var(--gentle-unit))}
+:where(.is-reading-gentle) .random-hint,:where(.is-reading-gentle) .secret-tag,:where(.is-reading-gentle) .frame-controls{font-size:calc(9 * var(--gentle-unit))}
+:where(.is-reading-gentle) .page-tabs button{font-size:calc(var(--gentle-page) * var(--gentle-unit))}
+:where(.is-reading-gentle) .page-tabs button,:where(.is-reading-gentle) .page-arrow{min-width:calc(25 * var(--gentle-base));height:calc(28 * var(--gentle-base))}
+:where(.is-reading-gentle) .wardrobe-pages{height:auto;min-height:calc(32 * var(--gentle-base))}
+:where(.is-reading-gentle) .selection-meta{gap:12px;flex-wrap:wrap}
+:where(.is-reading-gentle) .random-button{padding:calc(15 * var(--gentle-base)) calc(17 * var(--gentle-base))}
+:where(.is-reading-gentle) .lock-veil>span{font-size:calc(10 * var(--gentle-unit));letter-spacing:.1em}
+:where(.is-reading-gentle) .now-playing{min-width:0}
+:where(.is-reading-gentle) .now-playing>div{max-width:calc(100% - 15px)}
+:where(.is-reading-gentle) .now-playing p{max-width:calc(360 * var(--gentle-unit))}
+:where(.is-reading-gentle) .now-playing .micro,:where(.is-reading-gentle) .panel-top .micro,:where(.is-reading-gentle) .toast small{font-size:calc(8 * var(--gentle-unit));letter-spacing:.12em}
+:where(.is-reading-gentle) .panel{padding:calc(27 * var(--gentle-base)) calc(30 * var(--gentle-base)) calc(30 * var(--gentle-base));max-width:calc(100vw - 2 * var(--margin))}
+:where(.is-reading-gentle) .settings-panel{width:calc(240 * var(--gentle-base) + 100 * var(--gentle-unit));max-height:80vh;overflow:auto}
+:where(.is-reading-gentle) .panel h2{font-size:calc(30 * var(--gentle-base))}
+:where(.is-reading-gentle) .setting-line,:where(.is-reading-gentle) .setting-line output,:where(.is-reading-gentle) .layout-button,:where(.is-reading-gentle) .wake-button,:where(.is-reading-gentle) .moment-reading{font-size:calc(11 * var(--gentle-unit))}
+:where(.is-reading-gentle) .setting-line{margin:calc(22 * var(--gentle-base)) 0 calc(12 * var(--gentle-base));gap:12px}
+:where(.is-reading-gentle) .toggle-line small,:where(.is-reading-gentle) .layout-button small,:where(.is-reading-gentle) .layout-note,:where(.is-reading-gentle) .auto-loop-note{font-size:calc(9 * var(--gentle-unit));line-height:1.8}
+:where(.is-reading-gentle) .setting-options button{padding:calc(10 * var(--gentle-base)) 3px}
+:where(.is-reading-gentle) .layout-setting{margin-top:calc(23 * var(--gentle-base));padding-top:calc(19 * var(--gentle-base))}
+:where(.is-reading-gentle) .layout-controls .setting-line,:where(.is-reading-gentle) .layout-controls output,:where(.is-reading-gentle) .layout-actions button{font-size:calc(10 * var(--gentle-unit))}
+:where(.is-reading-gentle) .layout-actions{flex-wrap:wrap}
+:where(.is-reading-gentle) .layout-guide span{font-size:calc(8 * var(--gentle-unit))}
+:where(.is-reading-gentle) .view-tools{min-width:0}
+:where(.is-reading-gentle) .playback{flex-shrink:0}
+:where(.is-reading-gentle) .icon-button{width:calc(36 * var(--gentle-base));height:calc(36 * var(--gentle-base));flex-shrink:0}
+:where(.is-reading-gentle) .icon-button svg,:where(.is-reading-gentle) .text-button svg{width:calc(18 * var(--gentle-base));height:calc(18 * var(--gentle-base))}
+:where(.is-reading-gentle) .panel-top .icon-button{width:calc(28 * var(--gentle-base));height:calc(28 * var(--gentle-base))}
+:where(.is-reading-gentle) .timeline-display{width:calc(170 * var(--gentle-base))}
+:where(.is-reading-gentle) .timeline-label{font-size:calc(8 * var(--gentle-unit))}
+:where(.is-reading-gentle) .timeline-label span:first-child{font-size:calc(10 * var(--gentle-unit))}
+:where(.is-reading-gentle) .mode-button{width:calc(27 * var(--gentle-base));height:calc(36 * var(--gentle-base))}
+:where(.is-reading-gentle) .mode-button>svg{width:calc(12 * var(--gentle-base));height:calc(12 * var(--gentle-base))}
+:where(.is-reading-gentle) .mode-dot{left:50%;margin-left:-1.5px}
+:where(.is-reading-gentle) .mode-menu{width:calc(286 * var(--gentle-unit));padding:calc(18 * var(--gentle-base)) calc(9 * var(--gentle-base)) calc(9 * var(--gentle-base));max-height:75vh;overflow:auto}
+:where(.is-reading-gentle) .mode-menu>button{padding:calc(13 * var(--gentle-base)) calc(12 * var(--gentle-base))}
+:where(.is-reading-gentle) .mode-heading{font-size:calc(10 * var(--gentle-unit));letter-spacing:.1em}
+:where(.is-reading-gentle) .mode-heading .micro,:where(.is-reading-gentle) .mode-menu small,:where(.is-reading-gentle) .mode-footnote{font-size:calc(9 * var(--gentle-unit));letter-spacing:.04em}
+:where(.is-reading-gentle) .mode-menu strong,:where(.is-reading-gentle) .mode-menu em{font-size:calc(11 * var(--gentle-unit))}
+:where(.is-reading-gentle) .toast{padding:calc(15 * var(--gentle-base)) calc(25 * var(--gentle-base)) calc(17 * var(--gentle-base));min-width:min(calc(255 * var(--gentle-unit)),85vw);max-width:min(calc(540 * var(--gentle-unit)),85vw)}
+:where(.is-reading-gentle) .toast>span{font-size:calc(13 * var(--gentle-unit))}
+:where(.is-reading-gentle) .moment-panel{width:max(clamp(340px,29vw,460px),calc(360 * var(--gentle-unit)));max-height:75vh;overflow:auto}
+:where(.is-reading-gentle) #momentTime{font-size:calc(43 * var(--gentle-base))}
+:where(.is-reading-gentle) .moment-controls{flex-wrap:wrap;gap:10px}
+:where(.is-reading-gentle) .frame-controls button{font-size:calc(17 * var(--gentle-base));width:calc(29 * var(--gentle-base));height:calc(29 * var(--gentle-base))}
+:where(.is-reading-gentle) .save-button{font-size:calc(12 * var(--gentle-unit));padding:calc(15 * var(--gentle-base)) calc(16 * var(--gentle-base))}
+:where(.is-reading-gentle) .brand-type{font-size:calc(var(--gentle-brand) * var(--gentle-base))}
+:where(.is-reading-gentle) .brand-type>span{font-size:calc(var(--gentle-brand-small) * var(--gentle-base))}
+:where(.is-reading-gentle) .credit{font-size:calc(var(--gentle-credit) * var(--gentle-reading-base) * var(--credit-factor))}
+.wardrobe.is-reading-constrained{overflow-y:auto;scrollbar-width:thin;scrollbar-color:#d8bd9733 transparent}
+@media(max-height:850px) and (min-aspect-ratio:4/3){:where(.is-reading-gentle) .intro{margin-bottom:12px}:where(.is-reading-gentle) .selection-meta{padding:8px 0}:where(.is-reading-gentle) .random-button{padding:12px 15px}}
+@media(max-aspect-ratio:4/3){:where(.is-reading-gentle) .timeline-display{width:75px}:where(.is-reading-gentle) .playback{gap:8px}:where(.is-reading-gentle) .moment-panel{top:12vh;bottom:auto}}
+/* Enlarged captions get their own line; standard keeps the original name and heart row. */
+:where(.is-reading-enlarged) .intro,:where(.is-reading-enlarged) .collection-heading,:where(.is-reading-enlarged) #lookName,:where(.is-reading-enlarged) #randomText{font-size:var(--read-main)}
+:where(.is-reading-enlarged) .intro{font-size:var(--read-secondary);line-height:1.7;letter-spacing:.04em;color:#c8c5bb;text-wrap:balance}
+:where(.is-reading-enlarged) .eyebrow{font-size:var(--read-micro);letter-spacing:.15em}
+:where(.is-reading-enlarged) .collection-heading{letter-spacing:.08em}
+:where(.is-reading-enlarged) .look-bottom{display:block;min-height:1.5em;margin-top:10px}
+:where(.is-reading-enlarged) .look-short{display:block;font-size:calc(min(12 * var(--reading-unit),30px) * var(--wardrobe-name-factor,1));line-height:1.5;letter-spacing:0;color:#c9c7bf}
+:where(.is-reading-enlarged) .favorite-button{position:absolute;right:5px;top:5px;z-index:2;width:clamp(26px,1vw,36px);height:clamp(26px,1vw,36px);padding:6px;border:1px solid #e5d3b62b;border-radius:50%;background:#101a23c4;color:#e3d4bd}
+:where(.is-reading-enlarged) .favorite-button svg{width:100%;height:100%}
+:where(.is-reading-enlarged) .favorite-button:hover{background:#20303fe8;border-color:#e5d3b680}
+:where(.is-reading-enlarged) .favorite-button[aria-pressed=true]{background:#243039e8}
+:where(.is-reading-enlarged) .secret-tag{font-size:var(--read-micro);height:auto;line-height:1.6}
+:where(.is-reading-enlarged) .lock-veil>span{font-size:var(--read-small);letter-spacing:.08em}
+:where(.is-reading-enlarged) .chapter-name,:where(.is-reading-enlarged) .random-hint,:where(.is-reading-enlarged) .collection-note{font-size:var(--read-small);letter-spacing:.02em;color:#c0bbae}
+:where(.is-reading-enlarged) .wardrobe-pages{height:auto;min-height:calc(32 * var(--reading-unit));gap:8px}
+:where(.is-reading-enlarged) .page-tabs{gap:6px}:where(.is-reading-enlarged) .page-tabs button{font-size:var(--read-secondary);min-width:calc(25 * var(--reading-base));height:calc(32 * var(--reading-unit))}
+:where(.is-reading-enlarged) .page-arrow{width:calc(28 * var(--reading-base));height:calc(32 * var(--reading-unit))}
+:where(.is-reading-enlarged) .page-arrow svg{width:calc(14 * var(--reading-base));height:calc(14 * var(--reading-base))}
+:where(.is-reading-enlarged) .selection-meta{gap:12px;flex-wrap:wrap}
+:where(.is-reading-enlarged) #lookName{letter-spacing:.1em}:where(.is-reading-enlarged) #lookEnglish{font-size:var(--read-small);letter-spacing:.04em}
+:where(.is-reading-enlarged) .random-button{gap:12px;padding:calc(12 * var(--reading-unit)) 16px}
+:where(.is-reading-enlarged) #randomText{letter-spacing:.12em}:where(.is-reading-enlarged) .random-hint{white-space:nowrap}
+:where(.is-reading-enlarged) .random-button>svg{width:calc(18 * var(--reading-base));height:calc(18 * var(--reading-base))}
+:where(.is-reading-enlarged) .collection-note{line-height:1.6;align-items:baseline}
+/* Reading surfaces expand with their contents rather than clipping enlarged text. */
+:where(.is-reading-enlarged) .panel{padding:calc(24 * var(--reading-base));max-width:calc(100vw - 2 * var(--margin));scrollbar-width:thin}
+:where(.is-reading-enlarged) .settings-panel{width:calc(350 * var(--reading-unit));max-height:80vh}
+:where(.is-reading-enlarged) .panel h2{font-size:calc(28 * var(--reading-unit));letter-spacing:.05em}
+:where(.is-reading-enlarged) .panel-subtitle{font-size:var(--read-secondary);line-height:1.7;margin-bottom:calc(14 * var(--reading-base))}
+:where(.is-reading-enlarged) .panel-top{margin-bottom:calc(12 * var(--reading-base));gap:10px}
+:where(.is-reading-enlarged) .panel-top .micro{font-size:var(--read-micro);letter-spacing:.09em}
+:where(.is-reading-enlarged) .panel-top .icon-button{width:calc(30 * var(--reading-base));height:calc(30 * var(--reading-base));flex-shrink:0}
+:where(.is-reading-enlarged) .panel-top .icon-button svg{width:calc(18 * var(--reading-base));height:calc(18 * var(--reading-base))}
+:where(.is-reading-enlarged) .setting-line{font-size:var(--read-main);line-height:1.5;letter-spacing:.02em;margin:calc(14 * var(--reading-base)) 0 calc(8 * var(--reading-base))}
+:where(.is-reading-enlarged) .setting-line output{font-size:var(--read-secondary)}
+:where(.is-reading-enlarged) .toggle-line{gap:12px}:where(.is-reading-enlarged) .toggle-line small{font-size:var(--read-small);line-height:1.6;color:#c5c7be}
+:where(.is-reading-enlarged) .toggle-line input{width:calc(36 * var(--reading-base));height:calc(28 * var(--reading-base))}
+:where(.is-reading-enlarged) .switch{width:calc(30 * var(--reading-base));height:calc(16 * var(--reading-base))}
+:where(.is-reading-enlarged) .switch:before{width:calc(10 * var(--reading-base));height:calc(10 * var(--reading-base));left:calc(2 * var(--reading-base));top:calc(2 * var(--reading-base))}
+:where(.is-reading-enlarged) .toggle-line input:checked+.switch:before{transform:translateX(calc(14 * var(--reading-base)))}
+:where(.is-reading-enlarged) .setting-options{gap:4px;padding:4px;flex-wrap:wrap}
+:where(.is-reading-enlarged) .setting-options button{font-size:var(--read-secondary);padding:calc(7 * var(--reading-base)) 6px;min-height:calc(36 * var(--reading-base));line-height:1.5}
+:where(.is-reading-enlarged) input[type=range]{height:calc(28 * var(--reading-base))}
+:where(.is-reading-enlarged) input[type=range]::-webkit-slider-runnable-track{height:calc(2 * var(--reading-base))}
+:where(.is-reading-enlarged) input[type=range]::-webkit-slider-thumb{width:calc(12 * var(--reading-base));height:calc(12 * var(--reading-base));margin-top:calc(-5 * var(--reading-base))}
+:where(.is-reading-enlarged) .auto-loop-note{font-size:var(--read-small);line-height:1.7;margin-top:calc(10 * var(--reading-unit))}
+:where(.is-reading-enlarged) .layout-setting{margin-top:calc(18 * var(--reading-base));padding-top:calc(14 * var(--reading-base))}
+:where(.is-reading-enlarged) .layout-button{font-size:var(--read-main);line-height:1.5;letter-spacing:.02em}
+:where(.is-reading-enlarged) .layout-button small,:where(.is-reading-enlarged) .layout-note{font-size:var(--read-small);line-height:1.7;color:#c0c1b7}
+:where(.is-reading-enlarged) .layout-button>svg{width:calc(15 * var(--reading-base));height:calc(15 * var(--reading-base));flex-shrink:0}
+:where(.is-reading-enlarged) .layout-controls{padding:1px calc(12 * var(--reading-unit)) calc(10 * var(--reading-unit))}
+:where(.is-reading-enlarged) .layout-controls .setting-line,:where(.is-reading-enlarged) .layout-controls output,:where(.is-reading-enlarged) .layout-actions button{font-size:var(--read-secondary)}
+:where(.is-reading-enlarged) .layout-actions{flex-wrap:wrap;gap:calc(10 * var(--reading-unit))}
+:where(.is-reading-enlarged) .layout-actions #layoutDone{padding:calc(6 * var(--reading-unit)) calc(12 * var(--reading-unit))}
+:where(.is-reading-enlarged) .layout-range-row button{flex-basis:calc(28 * var(--reading-base));height:calc(32 * var(--reading-base))}
+:where(.is-reading-enlarged) .layout-range-row button svg{width:calc(14 * var(--reading-base));height:calc(14 * var(--reading-base))}
+:where(.is-reading-enlarged) .layout-guide span{font-size:var(--read-micro);letter-spacing:.08em}
+/* Playback and dialogue remain readable at physical 4K and at scaled desktops. */
+:where(.is-reading-enlarged) .now-playing{min-width:0}:where(.is-reading-enlarged) .now-playing>div{max-width:calc(100% - 15px)}
+:where(.is-reading-enlarged) .now-playing .micro{font-size:var(--read-micro);letter-spacing:.1em}
+:where(.is-reading-enlarged) .now-playing p{font-size:calc(16 * var(--reading-unit));max-width:calc(360 * var(--reading-unit));line-height:1.65;letter-spacing:.02em}
+:where(.is-reading-enlarged) .text-button,:where(.is-reading-enlarged) .wake-button{font-size:var(--read-main);letter-spacing:.03em}
+:where(.is-reading-enlarged) .text-button svg{width:calc(19 * var(--reading-base));height:calc(19 * var(--reading-base))}
+:where(.is-reading-enlarged) .view-tools{min-width:0;gap:calc(14 * var(--reading-base))}
+:where(.is-reading-enlarged) .icon-button{width:calc(36 * var(--reading-base));height:calc(36 * var(--reading-base));flex-shrink:0}
+:where(.is-reading-enlarged) .icon-button svg{width:calc(20 * var(--reading-base));height:calc(20 * var(--reading-base))}
+:where(.is-reading-enlarged) .playback{gap:calc(14 * var(--reading-base));flex-shrink:0}
+:where(.is-reading-enlarged) .timeline-display{width:calc(130 * var(--reading-unit))}
+:where(.is-reading-enlarged) .timeline-label,:where(.is-reading-enlarged) .timeline-label span:first-child{font-size:var(--read-small);letter-spacing:.02em}
+:where(.is-reading-enlarged) .mode-button{width:calc(28 * var(--reading-base));height:calc(36 * var(--reading-base))}
+:where(.is-reading-enlarged) .mode-button>svg{width:calc(12 * var(--reading-base));height:calc(12 * var(--reading-base))}
+:where(.is-reading-enlarged) .mode-dot{left:50%;margin-left:-1.5px}
+:where(.is-reading-enlarged) .mode-menu{width:calc(320 * var(--reading-unit));max-height:calc(82vh - 30px);overflow-y:auto;scrollbar-width:thin;padding:calc(17 * var(--reading-unit)) calc(10 * var(--reading-unit)) calc(9 * var(--reading-unit))}
+:where(.is-reading-enlarged) .mode-heading{font-size:var(--read-secondary);letter-spacing:.04em;padding:0 calc(12 * var(--reading-unit)) calc(12 * var(--reading-unit));flex-wrap:wrap}
+:where(.is-reading-enlarged) .mode-heading .micro{font-size:var(--read-micro);letter-spacing:.03em}
+:where(.is-reading-enlarged) .mode-menu>button{padding:calc(12 * var(--reading-unit));gap:calc(12 * var(--reading-base))}
+:where(.is-reading-enlarged) .mode-menu strong,:where(.is-reading-enlarged) .mode-menu em{font-size:var(--read-main);letter-spacing:.03em}
+:where(.is-reading-enlarged) .mode-menu small,:where(.is-reading-enlarged) .mode-footnote{font-size:var(--read-small);line-height:1.7;letter-spacing:.02em;color:#c1c2b7}
+:where(.is-reading-enlarged) .mode-menu .mode-symbol{width:calc(20 * var(--reading-base));height:calc(20 * var(--reading-base))}
+:where(.is-reading-enlarged) .mode-menu .mode-check{width:calc(14 * var(--reading-base));height:calc(14 * var(--reading-base))}
+:where(.is-reading-enlarged) .toast{min-width:min(calc(280 * var(--reading-unit)),85vw);max-width:min(calc(620 * var(--reading-unit)),85vw);padding:calc(16 * var(--reading-unit)) calc(24 * var(--reading-unit))}
+:where(.is-reading-enlarged) .toast>span{font-size:calc(16 * var(--reading-unit));line-height:1.7;letter-spacing:.03em}
+:where(.is-reading-enlarged) .toast small{font-size:var(--read-small);letter-spacing:.05em;margin-bottom:calc(7 * var(--reading-unit))}
+:where(.is-reading-enlarged) .moment-panel{width:calc(410 * var(--reading-unit));max-height:75vh;overflow:auto}
+:where(.is-reading-enlarged) .moment-reading,:where(.is-reading-enlarged) .moment-look,:where(.is-reading-enlarged) .frame-controls,:where(.is-reading-enlarged) .subtle-button{font-size:var(--read-secondary);letter-spacing:.03em}
+:where(.is-reading-enlarged) #momentTime{font-size:calc(42 * var(--reading-unit))}
+:where(.is-reading-enlarged) .moment-controls{flex-wrap:wrap;gap:10px}
+:where(.is-reading-enlarged) .frame-controls{gap:calc(9 * var(--reading-base))}
+:where(.is-reading-enlarged) .frame-controls button{font-size:calc(22 * var(--reading-base));width:calc(32 * var(--reading-base));height:calc(32 * var(--reading-base))}
+:where(.is-reading-enlarged) .save-button{font-size:var(--read-main);letter-spacing:.05em;padding:calc(14 * var(--reading-unit))}
+:where(.is-reading-enlarged) .brand-type{font-size:calc(15 * var(--reading-base));letter-spacing:.25em}
+:where(.is-reading-enlarged) .brand-type>span{font-size:calc(10 * var(--reading-base));letter-spacing:.12em}
+:where(.is-reading-enlarged) .credit{font-size:calc(var(--gentle-credit) * var(--gentle-reading-base) * var(--credit-factor));letter-spacing:.04em}
+@media(max-height:850px) and (min-aspect-ratio:4/3){:where(.is-reading-enlarged) .intro{margin-bottom:12px}:where(.is-reading-enlarged) .selection-meta{padding:8px 0}:where(.is-reading-enlarged) .random-button{padding:10px 12px}:where(.is-reading-enlarged) .collection-note{margin-top:8px}body:where(.is-reading-enlarged)[data-text-size=large] .eyebrow{display:none}body:where(.is-reading-enlarged)[data-text-size=large] h1{margin-top:0;margin-bottom:10px}}
+@media(max-aspect-ratio:4/3){:where(.is-reading-enlarged) .playback{gap:8px}:where(.is-reading-enlarged) .timeline-display{width:calc(94 * var(--reading-unit));min-width:74px}:where(.is-reading-enlarged) .view-tools{gap:5px}:where(.is-reading-enlarged) .moment-panel{top:12vh;bottom:auto}:where(.is-reading-enlarged) .mode-menu{left:-65px}:where(.is-reading-enlarged) .panel{max-width:88vw}:where(.is-reading-enlarged) .brand-type{font-size:13px}:where(.is-reading-enlarged) .brand-type>span{font-size:9px}}
+
+/* Midpoint typography: average the actual comfortable and large endpoints per text role.
+   The existing larger layout spacing stays generous; panel widths also interpolate. */
+body[data-text-size=larger]{--mid-comfort:calc(1.2 * var(--gentle-reading-base));--mid-large:calc(1.3 * var(--reading-base))}
+:where(body[data-text-size=larger]) .intro{font-size:calc((var(--gentle-copy) * var(--mid-comfort) + 13 * var(--mid-large)) / 2)}
+:where(body[data-text-size=larger]) .collection-heading,:where(body[data-text-size=larger]) .text-button{font-size:calc((var(--gentle-copy) * var(--mid-comfort) + 15 * var(--mid-large)) / 2)}
+:where(body[data-text-size=larger]) .look-short{font-size:calc((var(--gentle-name) * var(--mid-comfort) + min(12 * var(--mid-large), 30px)) / 2 * var(--wardrobe-name-factor,1))}
+:where(body[data-text-size=larger]) #lookName,:where(body[data-text-size=larger]) #randomText{font-size:calc((13 * var(--mid-comfort) + 15 * var(--mid-large)) / 2)}
+:where(body[data-text-size=larger]) #lookEnglish,:where(body[data-text-size=larger]) .lock-veil>span{font-size:calc((10 * var(--mid-comfort) + 12 * var(--mid-large)) / 2)}
+:where(body[data-text-size=larger]) .panel-subtitle,:where(body[data-text-size=larger]) .setting-options button,:where(body[data-text-size=larger]) .moment-look,:where(body[data-text-size=larger]) .subtle-button,:where(body[data-text-size=larger]) .layout-controls .setting-line,:where(body[data-text-size=larger]) .layout-controls output,:where(body[data-text-size=larger]) .layout-actions button,:where(body[data-text-size=larger]) .mode-heading{font-size:calc((10 * var(--mid-comfort) + 13 * var(--mid-large)) / 2)}
+:where(body[data-text-size=larger]) .chapter-name,:where(body[data-text-size=larger]) .collection-note{font-size:calc((var(--gentle-note) * var(--mid-comfort) + 12 * var(--mid-large)) / 2)}
+:where(body[data-text-size=larger]) .random-hint,:where(body[data-text-size=larger]) .toggle-line small,:where(body[data-text-size=larger]) .layout-button small,:where(body[data-text-size=larger]) .layout-note,:where(body[data-text-size=larger]) .auto-loop-note,:where(body[data-text-size=larger]) .mode-menu small,:where(body[data-text-size=larger]) .mode-footnote{font-size:calc((9 * var(--mid-comfort) + 12 * var(--mid-large)) / 2)}
+:where(body[data-text-size=larger]) .secret-tag,:where(body[data-text-size=larger]) .mode-heading .micro{font-size:calc((9 * var(--mid-comfort) + 10 * var(--mid-large)) / 2)}
+:where(body[data-text-size=larger]) .frame-controls{font-size:calc((9 * var(--mid-comfort) + 13 * var(--mid-large)) / 2)}
+:where(body[data-text-size=larger]) .page-tabs button{font-size:calc((var(--gentle-page) * var(--mid-comfort) + 13 * var(--mid-large)) / 2)}
+:where(body[data-text-size=larger]) .now-playing p{font-size:calc((var(--gentle-copy) * var(--mid-comfort) + 16 * var(--mid-large)) / 2)}
+:where(body[data-text-size=larger]) .now-playing .micro,:where(body[data-text-size=larger]) .panel-top .micro,:where(body[data-text-size=larger]) .layout-guide span{font-size:calc((8 * var(--mid-comfort) + 10 * var(--mid-large)) / 2)}
+:where(body[data-text-size=larger]) .toast small,:where(body[data-text-size=larger]) .timeline-label{font-size:calc((8 * var(--mid-comfort) + 12 * var(--mid-large)) / 2)}
+:where(body[data-text-size=larger]) .panel h2{font-size:calc((30 * var(--gentle-base) + 28 * var(--mid-large)) / 2)}
+:where(body[data-text-size=larger]) .setting-line,:where(body[data-text-size=larger]) .layout-button,:where(body[data-text-size=larger]) .wake-button,:where(body[data-text-size=larger]) .mode-menu strong,:where(body[data-text-size=larger]) .mode-menu em{font-size:calc((11 * var(--mid-comfort) + 15 * var(--mid-large)) / 2)}
+:where(body[data-text-size=larger]) .setting-line output,:where(body[data-text-size=larger]) .moment-reading{font-size:calc((11 * var(--mid-comfort) + 13 * var(--mid-large)) / 2)}
+:where(body[data-text-size=larger]) .layout-controls .setting-line output{font-size:calc((10 * var(--mid-comfort) + 13 * var(--mid-large)) / 2)}
+:where(body[data-text-size=larger]) .timeline-label span:first-child{font-size:calc((10 * var(--mid-comfort) + 12 * var(--mid-large)) / 2)}
+:where(body[data-text-size=larger]) .toast>span{font-size:calc((13 * var(--mid-comfort) + 16 * var(--mid-large)) / 2)}
+:where(body[data-text-size=larger]) #momentTime{font-size:calc((43 * var(--gentle-base) + 42 * var(--mid-large)) / 2)}
+:where(body[data-text-size=larger]) .frame-controls button{font-size:calc((17 * var(--gentle-base) + 22 * var(--reading-base)) / 2)}
+:where(body[data-text-size=larger]) .save-button{font-size:calc((12 * var(--mid-comfort) + 15 * var(--mid-large)) / 2)}
+:where(body[data-text-size=larger]) .brand-type{font-size:calc((var(--gentle-brand) * var(--gentle-base) + 15 * var(--reading-base)) / 2)}
+:where(body[data-text-size=larger]) .brand-type>span{font-size:calc((var(--gentle-brand-small) * var(--gentle-base) + 10 * var(--reading-base)) / 2)}
+:where(body[data-text-size=larger]) .eyebrow{font-size:calc((var(--gentle-note) * 1px + 10 * var(--mid-large)) / 2)}
+:where(body[data-text-size=larger]) .settings-panel{width:calc((240 * var(--gentle-base) + 100 * var(--mid-comfort) + 350 * var(--mid-large)) / 2)}
+:where(body[data-text-size=larger]) .mode-menu{width:calc((286 * var(--mid-comfort) + 320 * var(--mid-large)) / 2)}
+:where(body[data-text-size=larger]) .moment-panel{width:calc((max(clamp(340px,29vw,460px),360 * var(--mid-comfort)) + 410 * var(--mid-large)) / 2)}
+
+/* The accepted QHD widths (520/540/560/580) define modest per-tier growth.
+   Scale cover dimensions and grid gaps together; titles and reading fonts stay independent. */
+body{--wardrobe-tier:1;--clock-tier:1;--clock-unit:calc(var(--gentle-base) * var(--clock-tier))}
+body[data-text-size=comfortable]{--wardrobe-tier:calc(540 / 520);--clock-tier:1.125}
+body[data-text-size=larger]{--wardrobe-tier:calc(560 / 520);--clock-tier:1.25}
+body[data-text-size=large]{--wardrobe-tier:calc(580 / 520);--clock-tier:1.375}
+@media(min-aspect-ratio:4/3){
+  .wardrobe{--wardrobe-width:clamp(310px,24vw,435px);--wardrobe-cover-height:clamp(90px,7.1vw,136px);--wardrobe-gap:12px;--wardrobe-heading-gap:13px;--wardrobe-label-gap:10px;width:calc(var(--wardrobe-width) * var(--wardrobe-tier))}
+  .wardrobe .looks{gap:calc(var(--wardrobe-gap) * var(--wardrobe-tier))}
+  .wardrobe .look-image{height:calc(var(--wardrobe-cover-height) * var(--wardrobe-tier))}
+  .wardrobe .collection-heading{margin-bottom:calc(var(--wardrobe-heading-gap) * var(--wardrobe-tier))}
+  .wardrobe .look-bottom{margin-top:calc(var(--wardrobe-label-gap) * var(--wardrobe-tier))}
+}
+@media(min-width:2300px) and (min-aspect-ratio:4/3){.wardrobe{--wardrobe-width:520px;--wardrobe-cover-height:162px}}
+@media(max-height:850px) and (min-aspect-ratio:4/3){.wardrobe{--wardrobe-width:clamp(300px,25vw,360px);--wardrobe-cover-height:clamp(74px,11vh,106px);--wardrobe-gap:11px;--wardrobe-heading-gap:10px;--wardrobe-label-gap:6px}}
+@media(max-height:620px) and (min-aspect-ratio:4/3){.wardrobe{--wardrobe-width:285px;--wardrobe-cover-height:65px}}
+/* Above QHD, retain the approved 15% screen compensation as the base for all tiers.
+   Real layout boxes keep click targets, vertical fitting and horizontal position bounds aligned. */
+@media(min-width:2561px) and (min-height:1441px) and (min-aspect-ratio:4/3){
+  .wardrobe{--wardrobe-width:calc(520 * var(--wardrobe-step));--wardrobe-cover-height:calc(162 * var(--wardrobe-step));--wardrobe-gap:calc(12 * var(--wardrobe-step));--wardrobe-heading-gap:calc(13 * var(--wardrobe-step));--wardrobe-label-gap:calc(10 * var(--wardrobe-step))}
+  .wardrobe h1{font-size:calc(68 * var(--wardrobe-step));margin:calc(25 * var(--wardrobe-step)) 0 calc(18 * var(--wardrobe-step))}
+  .wardrobe .intro{margin-bottom:calc(34 * var(--wardrobe-step))}
+  .wardrobe .look-index{font-size:calc(14 * var(--wardrobe-step));top:calc(8 * var(--wardrobe-step));left:calc(8 * var(--wardrobe-step))}
+  .wardrobe .look-check{width:calc(17 * var(--wardrobe-step));height:calc(17 * var(--wardrobe-step));right:calc(7 * var(--wardrobe-step));bottom:calc(7 * var(--wardrobe-step))}
+  .wardrobe .look-check svg{width:calc(11 * var(--wardrobe-step));height:calc(11 * var(--wardrobe-step))}
+  :where(.is-reading-gentle) .wardrobe .favorite-button{width:calc(25 * var(--wardrobe-step));height:calc(26 * var(--wardrobe-step));padding:calc(5 * var(--wardrobe-step))}
+  :where(.is-reading-gentle) .wardrobe .favorite-button svg{width:calc(13 * var(--wardrobe-step));height:calc(13 * var(--wardrobe-step))}
+  .wardrobe .wardrobe-pages{margin:calc(12 * var(--wardrobe-step)) 0 calc(3 * var(--wardrobe-step))}
+  .wardrobe .selection-meta{padding:calc(12 * var(--wardrobe-step)) 0 calc(22 * var(--wardrobe-step))}
+  .wardrobe .collection-note{margin-top:calc(13 * var(--wardrobe-step))}
+}
+/* Georgia's numerals vary in width on some systems even with tabular-nums.
+   Let the caption justify to the actual time width instead of calibrating for one HH:MM. */
+.clock{align-items:flex-end;gap:calc(6 * var(--clock-unit))}
+.clock>span:first-child{font-size:calc(32 * var(--clock-unit));line-height:1.1;letter-spacing:calc(1 * var(--clock-unit));font-variant-numeric:tabular-nums;white-space:nowrap}
+.clock-caption{align-self:stretch;font-size:calc(9 * var(--clock-unit));line-height:1.5;letter-spacing:0;text-align:justify;text-align-last:justify;white-space:nowrap}
+@media(max-width:480px){body{--clock-unit:calc(.75px * var(--clock-tier))}}
+
+/* Scale only wardrobe contents. The outer box keeps real dimensions for fitting,
+   horizontal bounds and idle transforms; header/footer remain independent. */
+.wardrobe-content{display:flow-root;zoom:var(--wardrobe-composition-scale,1)}
+@media(min-aspect-ratio:4/3){
+  .wardrobe{width:calc(var(--wardrobe-width) * var(--wardrobe-tier) * var(--wardrobe-composition-scale,1));margin-top:calc(-1 * var(--wardrobe-lift,0px))}
+}
+.now-playing{top:var(--companion-top,0px);height:var(--companion-height,auto)}
+.credit{left:auto;right:var(--creator-right,var(--margin));bottom:var(--creator-bottom,3.25vh);white-space:nowrap}
+
+/* A quiet footer action, with confirmation kept inside the existing crystal panel. */
+.reset-setting{margin-top:23px;padding-top:18px;border-top:1px solid #ecddc416}
+.reset-button{min-height:28px;color:#b9b4a8;transition:color .2s}
+.reset-button:hover,.reset-button[aria-expanded=true]{color:#e5d1af}
+.reset-button>svg{width:14px;height:14px;opacity:.75}
+.reset-button[aria-expanded=true]>svg{transform:none}
+.reset-confirm{margin-top:12px;padding:1px 14px 12px;border:1px solid #e6d4b624;border-radius:7px;background:linear-gradient(125deg,#d8bd9710,transparent),#12202a30;animation:reset-confirm-arrive .25s var(--ease)}
+/* A translated child briefly extends the scroll area even when its layout fits. */
+@keyframes reset-confirm-arrive{from{opacity:0}to{opacity:1}}
+.reset-confirm .reset-copy{margin:12px 0;color:#ccc6b8;letter-spacing:.25px}
+.reset-actions{justify-content:flex-end;gap:20px;padding-top:9px}
+.reset-actions button{min-height:30px;padding:5px 7px}
+.reset-actions #confirmReset{padding:6px 13px;border:1px solid #ead9be39;border-radius:4px;background:#e2d0b614;color:#e5d1af}
+.reset-actions #confirmReset:hover{background:#d8bd9726}
+.reset-feedback{margin:10px 0 0;color:#dfbfa8}
+@media(prefers-reduced-motion:reduce){.reset-confirm{animation:none}}
+
+/* Three peer collections share the same interface and familiar controls. */
+.wardrobe-collections{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:0 0 23px;padding:4px;border:1px solid #dfccb224;border-radius:5px;background:linear-gradient(110deg,#d7c4ad0a,#11171c30);box-shadow:inset 0 1px 0 #fff8eb0a}
+.wardrobe-collections button{display:flex;align-items:center;justify-content:center;gap:9px;min-height:38px;padding:8px 5px;border-radius:3px;color:#b5b1aa;font-size:11px;letter-spacing:1px;white-space:nowrap;transition:background .25s,color .25s,box-shadow .25s}
+.wardrobe-collections button>span{font:italic 10px Georgia,serif;opacity:.45}
+.wardrobe-collections button:hover{background:#ead4b10b;color:#eee0ce}
+.wardrobe-collections button[aria-pressed=true]{background:#d8bd9718;box-shadow:inset 0 -1px 0 #ddc29b80;color:#eedab8}
+.wardrobe-collections button[aria-pressed=true]>span{opacity:.8}
+/* All collections inherit the original four-column portrait layout and heading.
+   The two new collections use pre-cropped covers aligned to sit-02. */
+.wardrobe[data-collection]:not([data-collection=classic]) .look-select img{object-fit:cover;object-position:center;filter:saturate(.82) brightness(.78)}
+.wardrobe[data-collection]:not([data-collection=classic]) .look-select:hover img{transform:none;filter:saturate(.95) brightness(1)}
+.wardrobe[data-collection]:not([data-collection=classic]) .look-card.active img{filter:saturate(.95) brightness(1)}
+/* Older private covers are already blurred in their images. Keep new closed
+   covers blurred on hover/focus too; only the picture, not the lock or name. */
+.wardrobe[data-collection] .look-card.is-locked.blur-cover .look-select img{filter:blur(8px) saturate(.5) brightness(.55);transform:scale(1.12)}
+body:not(.is-reading-enlarged) .wardrobe .look-card.is-locked .look-bottom{min-height:26px}
+@media(min-width:2561px) and (min-height:1441px) and (min-aspect-ratio:4/3){body:not(.is-reading-enlarged) .wardrobe .look-card.is-locked .look-bottom{min-height:calc(26 * var(--wardrobe-step))}}
+@media(min-width:2300px){.wardrobe-collections button{font-size:13px;min-height:44px}.wardrobe-collections button>span{font-size:12px}}
+:where(.is-reading-gentle) .wardrobe-collections button{font-size:calc(11 * var(--gentle-unit));min-height:calc(38 * var(--gentle-base))}
+:where(.is-reading-enlarged) .wardrobe-collections button{font-size:clamp(13px,1vw,22px);min-height:44px}
+@media(max-height:850px){.wardrobe-collections{margin-bottom:16px}.wardrobe-collections button{min-height:32px;font-size:10px;gap:5px}}
+@media(max-aspect-ratio:4/3){.wardrobe-collections{margin-bottom:16px}.wardrobe-collections button{font-size:11px;gap:5px}}
+@media(prefers-reduced-motion:reduce){.wardrobe-collections button{transition:none}}
+
+/* Discoverable controls in the existing smoked-glass composition. */
+.playback .playback-mode{margin-left:-7px;margin-right:0;flex-shrink:0}
+.playback .mode-button{width:auto;min-width:100px;padding:6px 10px;gap:8px;font-size:11px;letter-spacing:.06em;white-space:nowrap;color:#d8c5a9;border:1px solid #d8bd9726;background:#d8bd9708}
+.playback .mode-button>svg{flex-shrink:0}
+.playback .mode-menu{left:0;transform-origin:left bottom}
+:where(.is-reading-gentle) .playback .mode-button{font-size:calc(11 * var(--gentle-unit));padding:calc(6 * var(--gentle-base)) calc(10 * var(--gentle-base))}
+:where(.is-reading-enlarged) .playback .mode-button{font-size:var(--read-small);padding:calc(6 * var(--reading-base)) calc(10 * var(--reading-base))}
+.selection-current{display:flex;align-items:baseline;gap:9px;min-width:0}
+#selectionState{font-size:9px;font-weight:400;color:#a8a496;letter-spacing:.04em;white-space:nowrap}
+.browse-return{font-size:10px;letter-spacing:.04em;color:var(--gold);padding:3px 0;line-height:1.2}
+.browse-return:hover{text-decoration:underline;text-underline-offset:4px}
+.collection-heading{min-height:20px}
+:where(.is-reading-gentle) #selectionState,:where(.is-reading-gentle) .browse-return{font-size:calc(9 * var(--gentle-unit))}
+:where(.is-reading-enlarged) #selectionState,:where(.is-reading-enlarged) .browse-return{font-size:var(--read-small)}
+/* The header never enters the scrolling settings body. */
+.panel.settings-panel{display:flex;flex-direction:column;overflow:hidden;background:linear-gradient(145deg,#e4e9e60c,transparent 38%),rgba(16,27,34,.84)}
+.settings-panel .setting-options{background:#0911158c;border-color:#d8bd9740}
+.settings-panel .setting-options button{color:#cac9bd}
+.settings-panel .setting-options button[aria-pressed=true]{color:#f5dfba;background:#d8bd9729;box-shadow:inset 0 -2px #e2c59c}
+.settings-panel .switch{border-color:#aaa797;background:#09111580}
+.settings-panel input:checked+.switch{background:#d8bd9730}
+.settings-panel input[type=range]::-webkit-slider-runnable-track{background:#d8bd9766}
+.settings-panel input[type=range]::-moz-range-track{background:#d8bd9766}
+.settings-panel>.panel-top{flex-shrink:0}
+.settings-body{min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#d8bd9770 transparent;padding-right:6px}
+.sound-setting{margin-bottom:8px}
+.sound-setting .switch{flex-shrink:0}
+.sound-setting small{line-height:1.7}
+.sound-setting+.setting-line{margin-top:12px}
+/* Keep covers and actions intact; reclaim decorative space first. */
+.wardrobe.is-wardrobe-compact .eyebrow{display:none}
+.wardrobe.is-wardrobe-compact h1{font-size:28px;line-height:1.3;margin:0 0 10px;letter-spacing:.04em}
+.wardrobe.is-wardrobe-compact h1 br{display:none}
+.wardrobe.is-wardrobe-compact .intro{margin-bottom:12px}
+.is-reading-enlarged .wardrobe.is-wardrobe-compact .intro{display:none}
+.wardrobe.is-wardrobe-compact .wardrobe-collections{margin-bottom:12px}
+.wardrobe.is-wardrobe-compact .selection-meta{padding:8px 0}
+.wardrobe.is-reading-constrained{scrollbar-color:#d8bd9799 #111b2244;scrollbar-gutter:stable}
+@media(max-height:620px){.wardrobe.is-wardrobe-compact h1{font-size:23px}.wardrobe.is-wardrobe-compact .intro{display:none}}
+@media(max-width:1500px){.playback .timeline-display{width:90px;min-width:60px}.playback{flex-shrink:0}.view-tools{min-width:90px}}
+@media(max-aspect-ratio:4/3){.playback .mode-button{min-width:0;padding:6px;font-size:11px}.playback .timeline-display{width:65px;min-width:0}.bottom-bar{flex-wrap:wrap;row-gap:8px}.playback{flex-shrink:1}}
+@media(max-width:600px){.playback .timeline-display{display:none}.playback{gap:8px}.playback .playback-mode{margin-left:0}.playback #momentButton{font-size:10px}.selection-meta #lookEnglish{display:none}}
+/* A remembered random pool is separate from favorites and the playback mode. */
+.random-options{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px;font-size:10px;line-height:1.5;color:#b6afa1;letter-spacing:.04em}
+.random-options>div{display:flex;border:1px solid #d8bd9730;border-radius:4px;overflow:hidden;background:#101b224d}
+.random-options button{padding:6px 10px;white-space:nowrap;color:#bcb9ae}
+.random-options button+button{border-left:1px solid #d8bd9726}
+.random-options button[aria-pressed=true]{color:#efd8b5;background:#d8bd971c;box-shadow:inset 0 -1px #ddc29b80}
+.random-options button:disabled{opacity:.45;cursor:default}
+.random-options button:focus-visible{outline-offset:-2px}
+#randomFavoriteCount{font-family:Georgia,serif;margin-left:3px}
+:where(.is-reading-gentle) .random-options{font-size:calc(10 * var(--gentle-unit))}
+:where(.is-reading-enlarged) .random-options{font-size:var(--read-small)}
+.playback .primary-control.has-retry{width:auto;min-width:36px;padding:6px 9px;gap:6px;font-size:12px;white-space:nowrap;color:#efd8b5;border:1px solid #d8bd9740;border-radius:5px}
+/* One compact, dismissible hint anchored to the mode selector. No modal or focus grab. */
+.first-use-hint{position:absolute;bottom:calc(100% + 20px);left:0;z-index:25;width:360px;max-width:calc(100vw - 32px);padding:17px 20px;border:1px solid #d8bd9738;border-radius:9px;background:linear-gradient(140deg,#d8bd9709,transparent),rgba(16,27,34,.94);box-shadow:0 10px 35px #0003;color:#d7d1c5;font-size:12px;line-height:1.8;letter-spacing:.03em}
+.first-use-hint>div{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:8px}
+.first-use-hint strong{font-weight:400;color:#e8d1af;font-size:13px}
+.first-use-hint button{font-size:inherit;padding:4px 8px;color:#e8d1af;border:1px solid #d8bd9740;border-radius:4px;background:#d8bd9712;white-space:nowrap}
+.first-use-hint p{margin:3px 0}
+:where(.is-reading-gentle) .first-use-hint{font-size:calc(12 * var(--gentle-unit));width:calc(360 * var(--gentle-base))}
+:where(.is-reading-enlarged) .first-use-hint{font-size:var(--read-small);width:calc(320 * var(--reading-unit))}
+.first-use-hint strong{font-size:1.08em}
+
+/* An offline reading view inside settings; its header stays outside the scroll area. */
+.settings-panel{--help-space:var(--gentle-base);--help-unit:var(--gentle-unit)}
+:where(.is-reading-enlarged) .settings-panel{--help-space:var(--reading-base);--help-unit:var(--reading-unit)}
+:where(body[data-text-size=larger]) .settings-panel{--help-unit:calc((var(--mid-comfort) + var(--mid-large)) / 2)}
+.settings-header{gap:12px}
+.settings-header-actions{display:flex;align-items:center;gap:calc(12 * var(--help-space));flex-shrink:0}
+.settings-header .micro{min-width:0}
+.help-entry,.help-back{font-size:calc(11 * var(--help-unit));line-height:1.5;letter-spacing:.04em;color:var(--gold);padding:6px 0;white-space:nowrap}
+.help-entry:hover{text-decoration:underline;text-underline-offset:4px}
+.help-back{display:flex;align-items:center;gap:calc(8 * var(--help-space))}
+.help-back svg{width:calc(12 * var(--help-space));height:calc(12 * var(--help-space));transform:rotate(180deg)}
+.panel.settings-panel.is-help-view{width:calc(270 * var(--help-space) + 150 * var(--help-unit))}
+.help-body{min-height:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#d8bd9770 transparent;padding-right:calc(8 * var(--help-space));font-size:calc(12 * var(--help-unit));line-height:1.85;letter-spacing:.025em;color:#d0cec3}
+.help-body h2:focus{outline:none}
+.help-body>h2{margin-bottom:calc(22 * var(--help-space))}
+.help-section{padding:calc(17 * var(--help-space)) 0;border-top:1px solid #d8bd9726}
+.help-section h3{display:flex;align-items:baseline;gap:calc(11 * var(--help-space));font-size:calc(13 * var(--help-unit));font-weight:400;line-height:1.65;color:#f0dec2;margin:0 0 calc(9 * var(--help-space))}
+.help-number{font:italic .88em Georgia,serif;color:#bca37e;letter-spacing:.06em}
+.help-body p{margin:calc(7 * var(--help-space)) 0}
+.help-body dl{margin:calc(12 * var(--help-space)) 0}
+.help-body dl>div{display:grid;grid-template-columns:5em minmax(0,1fr);gap:calc(10 * var(--help-space));margin:calc(6 * var(--help-space)) 0}
+.help-body dt,.help-body .help-label{color:#dec8a6}
+.help-body dd{margin:0}
+.help-body .help-note{font-size:.92em;color:#aeb3aa}
+.help-more{border-top:1px solid #d8bd9726}
+.help-more details{border-bottom:1px solid #d8bd9726}
+.help-more summary{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:calc(14 * var(--help-space)) 0;color:#e4d6bf;cursor:pointer;list-style:none;font-size:calc(12 * var(--help-unit))}
+.help-more summary::-webkit-details-marker{display:none}
+.help-more summary svg{width:calc(13 * var(--help-space));height:calc(13 * var(--help-space));flex-shrink:0;fill:none;stroke:currentColor;stroke-width:1.4;transform:rotate(90deg);transition:transform .18s ease}
+.help-more details[open]>summary svg{transform:rotate(-90deg)}
+.help-more summary:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
+.help-answer{padding:0 0 calc(12 * var(--help-space))}
+.help-reminders{margin-top:calc(18 * var(--help-space));font-size:.92em;color:#aeb3aa}
+.help-reminders strong{display:block;font-weight:400;color:#d7c19f;margin-bottom:calc(3 * var(--help-space))}
+.help-reminders p+p{margin-top:calc(13 * var(--help-space))}
+.first-use-hint .first-use-help{display:flex;align-items:center;gap:10px;width:max-content;padding:5px 0 0;margin-top:6px;border:0;border-radius:0;background:none;color:#e8d1af}
+.first-use-hint .first-use-help:hover{text-decoration:underline;text-underline-offset:4px}
+@media(prefers-reduced-motion:reduce){.help-more summary svg{transition:none}}
